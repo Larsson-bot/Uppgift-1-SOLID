@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Uppgift_1_SOLID_Ny.Interfaces.Application
+namespace Uppgift_1_SOLID_Ny.Interfaces.ListHelper
 {
-    public interface IApplication
+    public interface IListHelper
     {
-        void Run();
-
+        int GetLastId(string typeOfList);
     }
 }

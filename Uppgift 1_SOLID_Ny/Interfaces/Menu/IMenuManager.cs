@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Uppgift_1_SOLID_Ny.Interfaces.IMenu
+namespace Uppgift_1_SOLID_Ny.Interfaces.Menu
 {
     public interface IMenuManager
     {
@@ -12,5 +12,6 @@ namespace Uppgift_1_SOLID_Ny.Interfaces.IMenu
         void CreateMenuItem(char selector, string title, Action runFunction);
         void DisplayMenu();
         IMenu GetMenu();
+        void EndApplication();
     }
 }

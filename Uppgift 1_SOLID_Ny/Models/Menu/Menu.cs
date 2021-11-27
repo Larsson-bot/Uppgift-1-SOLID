@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Uppgift_1_SOLID_Ny.Interfaces;
-using Uppgift_1_SOLID_Ny.Interfaces.IMenu;
+using Uppgift_1_SOLID_Ny.Interfaces.Menu;
 
 namespace Uppgift_1_SOLID_Ny.Models.Menu
 {

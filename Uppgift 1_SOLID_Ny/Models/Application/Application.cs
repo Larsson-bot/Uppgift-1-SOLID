@@ -3,21 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Uppgift_1_SOLID_Ny.Interfaces.Animal;
 using Uppgift_1_SOLID_Ny.Interfaces.Application;
+using Uppgift_1_SOLID_Ny.Interfaces.FIleManager;
+using Uppgift_1_SOLID_Ny.Interfaces.Menu;
+using Uppgift_1_SOLID_Ny.Interfaces.UserInput;
 
 namespace Uppgift_1_SOLID_Ny.Models.Application
 {
     public class Application : IApplication
     {
-        public void End()
+        private IMainMenu MainMenu;
+        private IUserInput UserInput;
+        private IDogManager DogManager;
+        private IFileManager FileManager;
+
+        public Application(IMainMenu mainMenu, IUserInput userInput, IDogManager dogManager, IFileManager fileManager)
         {
-            throw new NotImplementedException();
+            MainMenu = mainMenu;
+            UserInput = userInput;
+            DogManager = dogManager;
+            FileManager = fileManager;
         }
+
+ 
 
         public void Run()
         {
-            Console.WriteLine("Hello World");
-            Console.ReadKey();
+            DogManager.PopulateList(FileManager.ReadDogFíle());
+            AppDomain.CurrentDomain.ProcessExit += ProcessExitHandler;
+            while (true)
+            {
+                var menu = MainMenu.Init();
+                UserInput.GetUserInput(menu);
+            }
+        }
+
+
+
+        public void ProcessExitHandler(object sender, EventArgs e)
+        {
+            FileManager.WriteToAnimalFile(DogManager.GetAnimals());
         }
     }
 }
