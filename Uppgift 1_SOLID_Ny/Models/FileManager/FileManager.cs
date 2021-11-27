@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Uppgift_1_SOLID_Ny.Interfaces.Animal;
 using Uppgift_1_SOLID_Ny.Interfaces.Customer;
 using Uppgift_1_SOLID_Ny.Interfaces.FIleManager;
+using Uppgift_1_SOLID_Ny.Models._Customer;
 
 namespace Uppgift_1_SOLID_Ny.Models.FileManager
 {
@@ -17,10 +18,14 @@ namespace Uppgift_1_SOLID_Ny.Models.FileManager
 
 
         private Dog.Factory DogFactory;
+        private Customer.Factory CustomerFactory;
 
-        public FileManager(Dog.Factory dogFactory)
+
+
+        public FileManager(Dog.Factory dogFactory, Customer.Factory customerFactory)
         {
             DogFactory = dogFactory;
+            CustomerFactory = customerFactory;
         }
 
         public bool CheckIfFileExists(string fileName)
@@ -33,7 +38,24 @@ namespace Uppgift_1_SOLID_Ny.Models.FileManager
 
         public List<ICustomer> ReadCustomerFile()
         {
-            throw new NotImplementedException();
+            var fileexists = CheckIfFileExists("Customers");
+            if (fileexists == true)
+            {
+
+                var path = File.ReadAllText(@"C:\Files\Customers.json");
+                var json = JsonConvert.DeserializeObject<List<Customer>>(path);
+                var listOfCustomers = new List<ICustomer>();
+                foreach (var item in json)
+                {
+                    listOfCustomers.Add(CustomerFactory(item.Id, item.Name, item.PhoneNumber, item.AnimalId));
+                }
+                return listOfCustomers;
+            }
+            else
+            {
+                List<ICustomer> animals = new List<ICustomer>();
+                return animals;
+            }
         }
 
         public List<IDog> ReadDogFíle()
@@ -66,9 +88,12 @@ namespace Uppgift_1_SOLID_Ny.Models.FileManager
             File.WriteAllText(@"C:\Files\Dogs.json", json);
         }
 
-        public void WriteToCustomerFile(ICustomer customer)
+        public void WriteToCustomerFile(List<ICustomer> customers)
         {
-            throw new NotImplementedException();
+            var json = JsonConvert.SerializeObject(customers);
+
+
+            File.WriteAllText(@"C:\Files\Customers.json", json);
         }
     }
 }

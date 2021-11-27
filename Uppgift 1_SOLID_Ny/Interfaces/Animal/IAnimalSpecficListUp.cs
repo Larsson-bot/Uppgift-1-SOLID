@@ -8,7 +8,7 @@ namespace Uppgift_1_SOLID_Ny.Interfaces.Animal
 {
     public interface IAnimalSpecficListUp
     {
-        bool ListUpAnimalsReadyToCheckIn();
+        void ListUpAnimalsReadyToCheckIn();
         bool ListUpAnimalsInKennel();
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Uppgift_1_SOLID_Ny.Interfaces.Animal;
+using Uppgift_1_SOLID_Ny.Interfaces.Customer;
 using Uppgift_1_SOLID_Ny.Interfaces.FIleManager;
 using Uppgift_1_SOLID_Ny.Interfaces.Menu;
 
@@ -16,13 +17,15 @@ namespace Uppgift_1_SOLID_Ny.Models.Menu
         private Func<char, string, Action, IMenuItem> MenuItemFactory;
         private IFileManager FileManager;
         private IDogManager DogManager;
+        private ICustomerManager CustomerManager;
 
-        public MenuManager(IMenu menu, Func<char, string, Action, IMenuItem> menuItemFactory, IFileManager fileManager, IDogManager dogManager)
+        public MenuManager(IMenu menu, Func<char, string, Action, IMenuItem> menuItemFactory, IFileManager fileManager, IDogManager dogManager, ICustomerManager customerManager)
         {
             Menu = menu;
             MenuItemFactory = menuItemFactory;
             FileManager = fileManager;
             DogManager = dogManager;
+            CustomerManager = customerManager;
         }
 
         public void CreateMenu(string title)
@@ -55,7 +58,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Menu
             Console.WriteLine("Application is closing...");
             var dogs = DogManager.GetAnimals();
             FileManager.WriteToAnimalFile(DogManager.GetAnimals());
-        
+            FileManager.WriteToCustomerFile(CustomerManager.GetCustomers());
        
 
             Environment.Exit(0);

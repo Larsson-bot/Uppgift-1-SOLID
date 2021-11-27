@@ -9,6 +9,6 @@ namespace Uppgift_1_SOLID_Ny.Interfaces.FIleManager.Writers
 {
     public interface ICustomerFileWriter
     {
-        void WriteToCustomerFile(ICustomer customer);
+        void WriteToCustomerFile(List<ICustomer> customers);
     }
 }
