@@ -29,6 +29,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Application
             CustomerManager = customerManager;
         }
 
+        //Funktion som drar igång applikationen. 
         public void Run()
         {
             CustomerManager.PopulateList(FileManager.ReadCustomerFile());
@@ -42,7 +43,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Application
         }
 
 
-
+        //Funktion som sparar ner all data ifall användaren stänger ner 
         public void ProcessExitHandler(object sender, EventArgs e)
         {
             FileManager.WriteToAnimalFile(DogManager.GetAnimals());

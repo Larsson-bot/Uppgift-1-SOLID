@@ -20,6 +20,8 @@ namespace Uppgift_1_SOLID_Ny.Models.ListHelper
             Customers = customers;
         }
 
+
+        //Hämtar ut sista Id.
         public int GetLastId(string typeOfList)
         {
             if (typeOfList == "Dogs")

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Uppgift_1_SOLID_Ny.Interfaces.Animal;
 using Uppgift_1_SOLID_Ny.Interfaces.Animal.Mockup;
 using Uppgift_1_SOLID_Ny.Interfaces.Customer;
@@ -14,13 +12,12 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
 {
     public class DogManager : IDogManager
     {
-
         private IDog Dog;
         private Dog.Factory DogFactory;
         private Dogs Dogs;
         private IListHelper ListHelper;
         private IDogMockUp MockUp;
-        private Customers Customers ;
+        private Customers Customers;
         private ICustomerManager CustomerManager;
 
         public DogManager(IDog dog, Dog.Factory dogFactory, Dogs dogs, IListHelper listHelper, IDogMockUp mockUp, Customers customers, ICustomerManager customerManager)
@@ -37,39 +34,36 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
         public void AddEntity()
         {
             var loop = true;
-            Console.WriteLine("Welcome to the Dog registration! ");
+            Console.WriteLine("Welcome to the Dog registration!");
             Console.WriteLine("If you wanna cancel the registeration. Please type in 0");
             Console.WriteLine("Whats your dogs name?");
-           
-
-                var name = Console.ReadLine();
+            var name = Console.ReadLine();
             if (name != "0")
             {
                 Dog.Name = name;
-
-
-            var id = ListHelper.GetLastId("Dogs");
+                var id = ListHelper.GetLastId("Dogs");
                 Dog.Id = id + 1;
                 Dog.CheckedIn = false;
                 Dog.Clawscut = false;
                 Dog.Washed = false;
-
                 Dog.OwnerId = 0;
                 if (Customers.ListOfCustomers.Count != 0)
                 {
+                    Console.Clear();
                     CustomerManager.CreateCustomList(Customers.ListOfCustomers);
                     Console.WriteLine("\n\n");
                     Console.WriteLine("Please enter the CustomerId this dog belongs to.");
                     Console.WriteLine("If you wanna register a new customer. Type (C/c)");
-                    Console.WriteLine("If you wanna cancel the registeration. Please type in (0)");
+                    Console.WriteLine("If you wanna cancel the registeration. Please type in 0");
                     while (loop)
                     {
                         try
                         {
                             var stringId = Console.ReadLine();
-                            if (Regex.IsMatch("^[0-9]+$", stringId))
+                            Regex regex = new Regex("^[0-9]*$");
+                            if (regex.IsMatch(stringId)) //Kollar av om inputen bara innehåller siffror.
                             {
-                                var _id = Convert.ToInt32(Console.ReadLine());
+                                var _id = Convert.ToInt32(stringId); 
 
                                 if (_id != 0)
                                 {
@@ -98,11 +92,10 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
                                 {
                                     loop = false;
                                 }
-        
                             }
                             else
                             {
-                                if(stringId == "C" || stringId == "c")
+                                if (stringId == "C" || stringId == "c")
                                 {
                                     CustomerManager.RegisterCustomerFromOtherClass();
                                     Dog.OwnerId = Customers.ListOfCustomers.Last().Id;
@@ -117,16 +110,12 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
                                     Console.WriteLine("Stringinput was not correct. Please type C or c in order to create a new customer.");
                                 }
                             }
-
-
                         }
                         catch
                         {
                             Console.WriteLine("Unexpected error. Please contact support.");
                         }
-
                     }
-
                 }
                 else
                 {
@@ -141,16 +130,12 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
                     Console.ReadKey();
                 }
             }
-        
-           
         }
 
         public void AddAnimalToList(IDog dog)
         {
             Dogs.Items.Add(DogFactory(dog.Id, dog.Name, dog.CheckedIn, dog.Clawscut, dog.Washed, dog.OwnerId));
         }
-
-  
 
         public List<IDog> GetAllAnimalsInKennel()
         {
@@ -183,16 +168,15 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
                 Console.WriteLine("Id\tName\t\t\tCheckedIn\t\tOwner");
                 foreach (var item in animals)
                 {
-                    if(item.OwnerId != 0)
+                    if (item.OwnerId != 0)
                     {
                         var customer = Customers.ListOfCustomers.FirstOrDefault(x => x.Id == item.OwnerId);
-                        if(item.Name.Length > 8)
+                        if (item.Name.Length > 8)
                         {
                             Console.WriteLine(item.Id + "\t" + item.Name + "\t\t" + item.CheckedIn + "\t\t\t" + customer.Name);
                         }
                         else
                             Console.WriteLine(item.Id + "\t" + item.Name + "\t\t\t" + item.CheckedIn + "\t\t\t" + customer.Name);
-
                     }
                     else
                     {
@@ -205,7 +189,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
                     }
                 }
             }
-     
+
             Console.WriteLine("\n\nPress any Key to return to the menu.");
             Console.ReadKey();
         }
@@ -224,7 +208,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
                 Console.WriteLine("Id\tName\t\t\tCheckedIn\tOwner");
                 foreach (var item in dogs)
                 {
-                   var customer =  CustomerManager.GetSpecficCustomer(item.OwnerId);
+                    var customer = CustomerManager.GetSpecficCustomer(item.OwnerId);
                     Console.WriteLine(item.Id + "\t" + item.Name + "\t\t\t" + item.CheckedIn + "\t\t" + customer.Name);
                 }
                 Console.WriteLine("\n\nPress any Key to return to the menu.");
@@ -232,7 +216,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
             }
         }
 
-        public void  ListUpAnimalsReadyToCheckIn()
+        public void ListUpAnimalsReadyToCheckIn()
         {
             var dogs = Dogs.Items.Where(x => x.CheckedIn == false);
 
@@ -258,7 +242,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
         {
             if (dogs.Count() == 0)
             {
-                //var item = new List<IDog>();
+                //var item = new List<IDog>(); //Kod för att lägga in DogMockUp
                 //item = MockUp.AddMockUpAnimals(item);
                 //foreach (var i in item)
                 //{
@@ -285,14 +269,12 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
 
         public void CreateCustomListUp(List<IDog> dogs)
         {
-            Console.WriteLine("Id\tName\t\t\tCheckedIn\t\tOwner");
+            Console.WriteLine("Id\tName\t\t\tCheckedIn\tOwner");
             foreach (var item in dogs)
             {
                 var customer = CustomerManager.GetSpecficCustomer(item.OwnerId);
                 Console.WriteLine(item.Id + "\t" + item.Name + "\t\t\t" + item.CheckedIn + "\t\t" + customer.Name);
             }
         }
-
-
     }
 }

@@ -8,6 +8,6 @@ namespace Uppgift_1_SOLID_Ny.Interfaces.FIleManager.Helpers
 {
     public interface IFileHelper
     {
-        bool CheckIfFileExists(string fileName);
+        bool CheckIfFileExists(string fileName); 
     }
 }

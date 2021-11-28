@@ -9,6 +9,6 @@ namespace Uppgift_1_SOLID_Ny.Interfaces.FIleManager.Readers
 {
     public interface ICustomerFileReader
     {
-        List<ICustomer> ReadCustomerFile();
+        List<ICustomer> ReadCustomerFile(); 
     }
 }

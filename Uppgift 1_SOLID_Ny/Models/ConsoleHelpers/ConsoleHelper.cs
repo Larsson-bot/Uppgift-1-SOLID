@@ -11,7 +11,7 @@ namespace Uppgift_1_SOLID_Ny.Models.ConsoleHelpers
     {
         public void ReturnToMenuMessage()
         {
-            Console.WriteLine($"\n\nPress any Key to return to the menu.");
+            Console.WriteLine("\n\nPress any Key to return to the menu.");
             Console.ReadKey();
         }
 

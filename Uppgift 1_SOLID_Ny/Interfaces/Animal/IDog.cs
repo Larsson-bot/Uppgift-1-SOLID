@@ -10,5 +10,7 @@ namespace Uppgift_1_SOLID_Ny.Interfaces.Animal
     {
         bool Clawscut { get; set; }
         bool Washed { get; set; }
+
+       
     }
 }

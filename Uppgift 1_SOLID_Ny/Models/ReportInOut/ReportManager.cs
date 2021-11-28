@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Uppgift_1_SOLID_Ny.Interfaces.Animal;
+using Uppgift_1_SOLID_Ny.Interfaces.ConsoleHelpers;
 using Uppgift_1_SOLID_Ny.Interfaces.ReportInOut;
 using Uppgift_1_SOLID_Ny.Interfaces.Services.ReceiptServices;
 
@@ -14,20 +15,16 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
         private IDog Dog;
         private IReceiptService ReceiptService;
         private IDogManager DogManager;
+        private IConsoleHelper ConsoleHelper;
 
-        public ReportManager(IDog dog, IReceiptService receiptService, IDogManager dogManager)
+        public ReportManager(IDog dog, IReceiptService receiptService, IDogManager dogManager, IConsoleHelper consoleHelper)
         {
             Dog = dog;
             ReceiptService = receiptService;
             DogManager = dogManager;
+            ConsoleHelper = consoleHelper;
         }
-
-
-
-
-
-        //private IReceiptService ReceiptService;
-
+   
 
         public void ReportIn()
         {
@@ -81,6 +78,8 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
                                 {
                                     Dog.CheckedIn = true;
                                     DogManager.UpdateAnimalStatus(Dog);
+                                    Console.WriteLine(Dog.Name + " has checked in!");
+                                    ConsoleHelper.ReturnToMenuMessage();
                                     loop = false;
                                 }
 
@@ -124,7 +123,6 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
                 Console.WriteLine("Type 0 if you want to return to the menu.");
                 while (loop)
                 {
-
                     try
                     {
                         var id = Convert.ToInt32(Console.ReadLine());
@@ -146,6 +144,7 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
                                     Dog.Clawscut = false;
                                     Dog.Washed = false;
                                     DogManager.UpdateAnimalStatus(Dog);
+                                    
                                 }
                                 else
                                 {

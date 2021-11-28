@@ -15,7 +15,7 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer.Mockup
                 int length = 5;
                 for (int i = 1; i < length; i++)
                 {
-                    customers.Add(new Customer() { Id = i, Name = Faker.Name.First()});
+                    customers.Add(new Customer() { Id = i, Name = Faker.Name.First(), Email = Faker.Internet.Email()});
                 }
                 return customers; 
         }

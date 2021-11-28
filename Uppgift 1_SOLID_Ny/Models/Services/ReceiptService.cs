@@ -1,5 +1,6 @@
 ﻿using System;
 using Uppgift_1_SOLID_Ny.Interfaces.Animal;
+using Uppgift_1_SOLID_Ny.Interfaces.ConsoleHelpers;
 using Uppgift_1_SOLID_Ny.Interfaces.Services.ReceiptServices;
 
 namespace Uppgift_1_SOLID_Ny.Models.Services
@@ -7,10 +8,12 @@ namespace Uppgift_1_SOLID_Ny.Models.Services
     public class ReceiptService : IReceiptService
     {
         private IDog Dog;
+        private IConsoleHelper ConsoleHelper;
 
-        public ReceiptService(IDog dog)
+        public ReceiptService(IDog dog, IConsoleHelper consoleHelper)
         {
             Dog = dog;
+            ConsoleHelper = consoleHelper;
         }
 
         public void CalculateReceipt(IDog dog)
@@ -19,23 +22,23 @@ namespace Uppgift_1_SOLID_Ny.Models.Services
             int payment = 1;
             int receipt = 100;
             Console.Clear();
-            Console.WriteLine("Receipt!");
-            Console.WriteLine("Standard Fee\t" + 100);
+            ConsoleHelper.WriteToConsole("Receipt!");
+            ConsoleHelper.WriteToConsole("Standard Fee\t" + 100);
             if (dog.Washed == true)
             {
                 receipt = receipt + 25;
-                Console.WriteLine("Washing\t\t" + 25);
+                ConsoleHelper.WriteToConsole("Washing\t\t" + 25);
             }
             if (dog.Clawscut == true)
             {
                 receipt = receipt + 40;
-                Console.WriteLine("Claws cut\t" + 40);
+                ConsoleHelper.WriteToConsole("Claws cut\t" + 40);
             }
-            Console.WriteLine("Total:\t\t" + receipt);
-            Console.WriteLine("How would you like to pay?");
-            Console.WriteLine("1. By Card");
-            Console.WriteLine("2. By Cash");
-            Console.WriteLine("3. NOT AT ALL. THIS IS TOO EXPENSIVE");
+            ConsoleHelper.WriteToConsole("Total:\t\t" + receipt + "\n\n");
+            ConsoleHelper.WriteToConsole("How would you like to pay?");
+            ConsoleHelper.WriteToConsole("1. By Card");
+            ConsoleHelper.WriteToConsole("2. By Cash");
+            ConsoleHelper.WriteToConsole("3. NOT AT ALL. THIS IS TOO EXPENSIVE");
             while (loop)
             {
                 try
@@ -45,7 +48,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Services
                 }
                 catch
                 {
-                    Console.WriteLine("Only numbers please.");
+                    ConsoleHelper.WriteToConsole("Only numbers please.");
                 }
                 
             }
@@ -53,23 +56,24 @@ namespace Uppgift_1_SOLID_Ny.Models.Services
             switch (payment)
             {
                 case 1:
-                    Console.WriteLine("Card Swiped!");
-                    Console.WriteLine("Have a great day!");
-                    Console.ReadKey();
+                    ConsoleHelper.WriteToConsole("Card Swiped!");
+                    ConsoleHelper.WriteToConsole("Have a great day!");
+                    ConsoleHelper.ReturnToMenuMessage();
                     break;
                 case 2:
-                    Console.WriteLine("Cash received!");
-                    Console.WriteLine("Have a great day!");
-                    Console.ReadKey();
+                    ConsoleHelper.WriteToConsole("Cash received!");
+                    ConsoleHelper.WriteToConsole("Have a great day!");
+                    ConsoleHelper.ReturnToMenuMessage();
 
                     break;
                 case 3:
-                    Console.WriteLine("I´m calling the police.");
-                    Console.ReadKey();
+                    ConsoleHelper.WriteToConsole("I´m calling the police.");
+                    ConsoleHelper.ReturnToMenuMessage();
                     break;
                 default:
-                    Console.WriteLine("Card Swiped!");
-                    Console.WriteLine("Have a great day!");
+                    ConsoleHelper.WriteToConsole("Card Swiped!");
+                    ConsoleHelper.WriteToConsole("Have a great day!");
+                    ConsoleHelper.ReturnToMenuMessage();
                     break;
             }
         }

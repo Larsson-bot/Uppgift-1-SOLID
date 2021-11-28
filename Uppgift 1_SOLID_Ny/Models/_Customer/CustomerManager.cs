@@ -27,24 +27,24 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer
 
         public void AddEntity()
         {
+            bool loop = true;
+            string name = "";
             Console.WriteLine("Welcome to the Customer registration! ");
             Console.WriteLine("If you wanna cancel the registeration. Please type in 0");
             Console.WriteLine("Whats your name?");
             try
             {
-                bool loop = true;
+          
                 while (loop)
                 {
-                    var name = Console.ReadLine();
+                    name = Console.ReadLine();
 
                     if (name.Length > 2 && Regex.IsMatch(name, @"^[a-zA-Z]+$"))
                     {
                         Customer.Name = name;
                         Customer.Id = ListHelper.GetLastId("Customers") + 1;
-                        AddCustomerToList(Customer);
-                        Console.WriteLine("Customer has been created!");
-                        Console.WriteLine("\n\nPress any Key to return to the menu.");
-                        Console.ReadKey();
+                        
+
                         loop = false;
                     }
                     else if (Regex.IsMatch(name, "0"))
@@ -61,25 +61,63 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer
             {
                 Console.WriteLine("Please dont use numbers.");
             }
+            try
+            {
+                if (name != "0")
+                {
+                    loop = true;
+                    Console.WriteLine("Whats your emailadress?");
+                    while (loop)
+                    {
+                        var email = Console.ReadLine();
+
+                        var regex = new Regex(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+
+                        if (email.Length > 4 && regex.IsMatch(email))
+                        {
+                            Customer.Email = email;
+
+
+                            AddCustomerToList(Customer);
+                            Console.WriteLine("Customer has been created!");
+                            Console.WriteLine("\n\nPress any Key to return to the menu.");
+                            Console.ReadKey();
+                            loop = false;
+                        }
+                        else if (Regex.IsMatch(email, "0"))
+                        {
+                            loop = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please write a valid emailformat a@a.com.");
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Format Error.");
+            }
         }
 
         public void RegisterCustomerFromOtherClass()
         {
+            bool loop = true;
             Console.WriteLine("Welcome to the Customer registration! ");
 
             Console.WriteLine("Whats your name?");
             try
             {
-                bool loop = true;
+            
                 while (loop)
                 {
                     var name = Console.ReadLine();
-                    if (name.Length > 2 && Regex.IsMatch(name, @"^[a-zA-Z]+$"))
+                    if (name.Length > 2 && Regex.IsMatch(name, @"^[a-öA-Ö]+$"))
                     {
                         Customer.Name = name;
                         Customer.Id = ListHelper.GetLastId("Customers") + 1;
-                        AddCustomerToList(Customer);
-                        Console.WriteLine("Customer has been created!");
+
                         loop = false;
                     }
                     else
@@ -92,6 +130,31 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer
             {
                 Console.WriteLine("Please dont use numbers.");
             }
+            loop = true;
+            Console.WriteLine("Whats your emailadress?");
+            try
+            {
+                while (loop)
+                {
+                    var email = Console.ReadLine();
+                    var regex = new Regex(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+                    if (email.Length > 4 && regex.IsMatch(email))
+                    {
+                        Customer.Email = email;
+                        AddCustomerToList(Customer);
+                        Console.WriteLine("Customer has been created!");
+                        loop = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please write a valid emailformat a@a.com.");
+                    }
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Format Error.");
+            }
         }
 
         public void ListUpAllRegisteredEntities()
@@ -103,10 +166,16 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer
             else
             {
                 Console.WriteLine("Listing up all registered customers!");
-                Console.WriteLine("Id\tName");
+                Console.WriteLine("Id\tName\t\tEmail");
                 foreach (var item in Customers.ListOfCustomers)
                 {
-                    Console.WriteLine(item.Id + "\t" + item.Name);
+                    if (item.Name.Length > 8)
+                    {
+                        Console.WriteLine(item.Id + "\t" + item.Name + "\t" + item.Email);
+                    }
+                    else
+                        Console.WriteLine(item.Id + "\t" + item.Name + "\t\t" + item.Email);
+
                 }
             }
             Console.WriteLine("\n\nPress any Key to return to the menu.");
@@ -115,14 +184,14 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer
 
         public void AddCustomerToList(ICustomer customer)
         {
-            Customers.ListOfCustomers.Add(CustomerFactory(customer.Id, customer.Name));
+            Customers.ListOfCustomers.Add(CustomerFactory(customer.Id, customer.Name,customer.Email));
         }
 
         public void PopulateList(List<ICustomer> customers)
         {
             if (customers.Count() == 0)
             {
-                //var item = new List<ICustomer>();
+                //var item = new List<ICustomer>(); //Kod för att mockup ska fungera.
                 //item = CustomerMockUp.AddMockUpCustomers(item);
                 //foreach (var i in item)
                 //{
@@ -150,10 +219,15 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer
 
         public void CreateCustomList(List<ICustomer> customers)
         {
-            Console.WriteLine("Id\tName");
+            Console.WriteLine("Id\tName\t\tEmail");
             foreach (var item in customers)
             {
-                Console.WriteLine(item.Id + "\t" + item.Name);
+                if (item.Name.Length > 8)
+                {
+                    Console.WriteLine(item.Id + "\t" + item.Name + "\t" + item.Email);
+                }
+                else
+                    Console.WriteLine(item.Id + "\t" + item.Name + "\t\t" + item.Email);
             }
         }
     }

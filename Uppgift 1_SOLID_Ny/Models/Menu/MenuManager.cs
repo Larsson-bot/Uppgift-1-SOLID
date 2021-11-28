@@ -55,6 +55,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Menu
 
         public void EndApplication()
         {
+            //Skriver listorna till filer när applikationen avslutas.
             Console.WriteLine("Application is closing...");
             var dogs = DogManager.GetAnimals();
             FileManager.WriteToAnimalFile(DogManager.GetAnimals());

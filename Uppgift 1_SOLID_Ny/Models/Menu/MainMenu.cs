@@ -31,6 +31,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Menu
 
         public IMenu Init()
         {
+            //Skapar menun.
             MenuManager.CreateMenu("Welcome to the kennelApplication!");
             MenuManager.CreateMenuItem('1', "Add a customer", CustomerManager.AddEntity);
             MenuManager.CreateMenuItem('2', "Add a animal", DogManager.AddEntity);

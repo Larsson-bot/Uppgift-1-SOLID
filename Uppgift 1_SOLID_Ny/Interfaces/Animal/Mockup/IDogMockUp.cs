@@ -8,6 +8,6 @@ namespace Uppgift_1_SOLID_Ny.Interfaces.Animal.Mockup
 {
     public interface IDogMockUp
     {
-        List<IDog> AddMockUpAnimals(List<IDog> dogs);
+        List<IDog> AddMockUpAnimals(List<IDog> dogs); //Skickar in en tom lista som fyller i den med mockupdata.
     }
 }

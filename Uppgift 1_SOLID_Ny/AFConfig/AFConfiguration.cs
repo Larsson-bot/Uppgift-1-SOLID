@@ -28,6 +28,8 @@ using Uppgift_1_SOLID_Ny.Interfaces.Customer.Mockup;
 using Uppgift_1_SOLID_Ny.Models.Services;
 using Uppgift_1_SOLID_Ny.Interfaces.Services;
 using Uppgift_1_SOLID_Ny.Interfaces.Services.ReceiptServices;
+using Uppgift_1_SOLID_Ny.Models.ConsoleHelpers;
+using Uppgift_1_SOLID_Ny.Interfaces.ConsoleHelpers;
 
 namespace Uppgift_1_SOLID_Ny.AFConfig
 {
@@ -35,6 +37,7 @@ namespace Uppgift_1_SOLID_Ny.AFConfig
     {
         public static IContainer Configuration()
         {
+
             var builder = new ContainerBuilder();
             builder.RegisterType<Application>().As<IApplication>();
             builder.RegisterType<MainMenu>().As<IMainMenu>();
@@ -57,6 +60,7 @@ namespace Uppgift_1_SOLID_Ny.AFConfig
             builder.RegisterType<CustomerMockUp>().As<ICustomerMockUp>();
             builder.RegisterType<DogService>().As<IDogService>();
             builder.RegisterType<ReceiptService>().As<IReceiptService>();
+            builder.RegisterType<ConsoleHelper>().As<IConsoleHelper>();
             return builder.Build();
         }
     }
