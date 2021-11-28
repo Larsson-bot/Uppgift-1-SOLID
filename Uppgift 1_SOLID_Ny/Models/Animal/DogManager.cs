@@ -171,7 +171,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
                     if (item.OwnerId != 0)
                     {
                         var customer = Customers.ListOfCustomers.FirstOrDefault(x => x.Id == item.OwnerId);
-                        if (item.Name.Length > 8)
+                        if (item.Name.Length >= 8)
                         {
                             Console.WriteLine(item.Id + "\t" + item.Name + "\t\t" + item.CheckedIn + "\t\t\t" + customer.Name);
                         }
@@ -180,7 +180,7 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
                     }
                     else
                     {
-                        if (item.Name.Length > 8)
+                        if (item.Name.Length >= 8)
                         {
                             Console.WriteLine(item.Id + "\t" + item.Name + "\t\t" + item.CheckedIn + "\t\t\t" + item.OwnerId);
                         }
@@ -242,12 +242,12 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
         {
             if (dogs.Count() == 0)
             {
-                //var item = new List<IDog>(); //Kod för att lägga in DogMockUp
-                //item = MockUp.AddMockUpAnimals(item);
-                //foreach (var i in item)
-                //{
-                //    AddAnimalToList(i);
-                //}
+                var item = new List<IDog>(); //Kod för att lägga in DogMockUp
+                item = MockUp.AddMockUpAnimals(item);
+                foreach (var i in item)
+                {
+                    AddAnimalToList(i);
+                }
             }
             else
             {
@@ -273,7 +273,12 @@ namespace Uppgift_1_SOLID_Ny.Models.Animal
             foreach (var item in dogs)
             {
                 var customer = CustomerManager.GetSpecficCustomer(item.OwnerId);
-                Console.WriteLine(item.Id + "\t" + item.Name + "\t\t\t" + item.CheckedIn + "\t\t" + customer.Name);
+                if (item.Name.Length >= 8)
+                {
+                    Console.WriteLine(item.Id + "\t" + item.Name + "\t\t" + item.CheckedIn + "\t\t\t" + customer.Name);
+                }
+                else
+                    Console.WriteLine(item.Id + "\t" + item.Name + "\t\t\t" + item.CheckedIn + "\t\t\t" + customer.Name);
             }
         }
     }

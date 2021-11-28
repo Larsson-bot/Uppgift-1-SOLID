@@ -169,7 +169,7 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer
                 Console.WriteLine("Id\tName\t\tEmail");
                 foreach (var item in Customers.ListOfCustomers)
                 {
-                    if (item.Name.Length > 8)
+                    if (item.Name.Length >= 8)
                     {
                         Console.WriteLine(item.Id + "\t" + item.Name + "\t" + item.Email);
                     }
@@ -191,12 +191,12 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer
         {
             if (customers.Count() == 0)
             {
-                //var item = new List<ICustomer>(); //Kod för att mockup ska fungera.
-                //item = CustomerMockUp.AddMockUpCustomers(item);
-                //foreach (var i in item)
-                //{
-                //    AddCustomerToList(i);
-                //}
+                var item = new List<ICustomer>(); //Kod för att mockup ska fungera.
+                item = CustomerMockUp.AddMockUpCustomers(item);
+                foreach (var i in item)
+                {
+                    AddCustomerToList(i);
+                }
             }
             else
             {
@@ -222,7 +222,7 @@ namespace Uppgift_1_SOLID_Ny.Models._Customer
             Console.WriteLine("Id\tName\t\tEmail");
             foreach (var item in customers)
             {
-                if (item.Name.Length > 8)
+                if (item.Name.Length >= 8)
                 {
                     Console.WriteLine(item.Id + "\t" + item.Name + "\t" + item.Email);
                 }
