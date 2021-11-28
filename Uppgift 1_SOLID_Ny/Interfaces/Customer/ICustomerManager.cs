@@ -7,10 +7,12 @@ using Uppgift_1_SOLID_Ny.Interfaces.Managers;
 
 namespace Uppgift_1_SOLID_Ny.Interfaces.Customer
 {
-    public interface ICustomerManager : IEntityManager
+    public interface ICustomerManager : IEntityManager, ICustomerSpecficListMethods
     {
-        void AddCustomerToList(ICustomer customer);
-        void PopulateList(List<ICustomer> customers);
+        void RegisterCustomerFromOtherClass();
         List<ICustomer> GetCustomers();
+  
+        ICustomer GetSpecficCustomer(int id);
+
     }
 }

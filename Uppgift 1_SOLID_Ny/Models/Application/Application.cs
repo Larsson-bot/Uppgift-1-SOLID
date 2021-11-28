@@ -31,8 +31,8 @@ namespace Uppgift_1_SOLID_Ny.Models.Application
 
         public void Run()
         {
-            DogManager.PopulateList(FileManager.ReadDogFíle());
             CustomerManager.PopulateList(FileManager.ReadCustomerFile());
+            DogManager.PopulateList(FileManager.ReadDogFíle());
             AppDomain.CurrentDomain.ProcessExit += ProcessExitHandler;
             while (true)
             {

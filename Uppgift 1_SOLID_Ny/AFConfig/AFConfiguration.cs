@@ -25,6 +25,9 @@ using Uppgift_1_SOLID_Ny.Models.ReportInOut;
 using Uppgift_1_SOLID_Ny.Models.UserInput;
 using Uppgift_1_SOLID_Ny.Models._Customer.Mockup;
 using Uppgift_1_SOLID_Ny.Interfaces.Customer.Mockup;
+using Uppgift_1_SOLID_Ny.Models.Services;
+using Uppgift_1_SOLID_Ny.Interfaces.Services;
+using Uppgift_1_SOLID_Ny.Interfaces.Services.ReceiptServices;
 
 namespace Uppgift_1_SOLID_Ny.AFConfig
 {
@@ -52,6 +55,8 @@ namespace Uppgift_1_SOLID_Ny.AFConfig
             builder.RegisterType<CustomerManager>().As<ICustomerManager>();
             builder.RegisterType<Customers>().InstancePerLifetimeScope();
             builder.RegisterType<CustomerMockUp>().As<ICustomerMockUp>();
+            builder.RegisterType<DogService>().As<IDogService>();
+            builder.RegisterType<ReceiptService>().As<IReceiptService>();
             return builder.Build();
         }
     }

@@ -10,7 +10,6 @@ namespace Uppgift_1_SOLID_Ny.Interfaces.Customer
     {
         int Id { get; set; }
         string Name { get; set; }
-        string PhoneNumber { get; set; }
-        int AnimalId { get; set; }
+
     }
 }

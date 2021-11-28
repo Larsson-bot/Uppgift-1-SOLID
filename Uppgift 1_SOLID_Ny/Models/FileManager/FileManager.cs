@@ -47,7 +47,7 @@ namespace Uppgift_1_SOLID_Ny.Models.FileManager
                 var listOfCustomers = new List<ICustomer>();
                 foreach (var item in json)
                 {
-                    listOfCustomers.Add(CustomerFactory(item.Id, item.Name, item.PhoneNumber, item.AnimalId));
+                    listOfCustomers.Add(CustomerFactory(item.Id, item.Name));
                 }
                 return listOfCustomers;
             }

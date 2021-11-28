@@ -9,6 +9,7 @@ namespace Uppgift_1_SOLID_Ny.Interfaces.Animal
     public interface IAnimalSpecficListUp
     {
         void ListUpAnimalsReadyToCheckIn();
-        bool ListUpAnimalsInKennel();
+        void ListUpAnimalsInKennel();
+        void CreateCustomListUp(List<IDog> dogs);
     }
 }

@@ -5,20 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Uppgift_1_SOLID_Ny.Interfaces.Animal;
 using Uppgift_1_SOLID_Ny.Interfaces.ReportInOut;
+using Uppgift_1_SOLID_Ny.Interfaces.Services.ReceiptServices;
 
 namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
 {
     public class ReportManager : IReportManager
     {
         private IDog Dog;
-
+        private IReceiptService ReceiptService;
         private IDogManager DogManager;
 
-        public ReportManager(IDog dog, IDogManager dogManager)
+        public ReportManager(IDog dog, IReceiptService receiptService, IDogManager dogManager)
         {
             Dog = dog;
+            ReceiptService = receiptService;
             DogManager = dogManager;
         }
+
+
 
 
 
@@ -47,16 +51,18 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
             }
             else
             {
-              DogManager.ListUpAnimalsReadyToCheckIn();
                 var loop = true;
-
+                DogManager.ListUpAnimalsReadyToCheckIn();
+       
+           
+                Console.WriteLine("Please type in your animals Id that you want to report in.");
+                Console.WriteLine("Type 0 if you want to return to the menu.");
                 while (loop)
                 {
-
+                  
                     try
                     {
-                        Console.WriteLine("Please type in your animals Id.");
-                        Console.WriteLine("Press 0 if you want to return to the menu.");
+               
                         var id = Console.ReadLine();
                         if(Convert.ToInt32(id) != 0)
                         {
@@ -69,7 +75,7 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
                             {
                                 if (Dog.CheckedIn == true)
                                 {
-                                    Console.WriteLine("Animal is already checked in.");
+                                    Console.WriteLine("Dog is already checked in.");
                                 }
                                 else
                                 {
@@ -93,19 +99,7 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
                     }
 
                 }
-
-
-
             }
-
-
-            //AnimalManager.ListUpAllAnimals();
-
-            //Console.WriteLine("Please type in your animals Id.");
-            //var id = Console.ReadLine();
-            //var animal = AnimalManager.GetSpecficAnimal(Convert.ToInt32(id));
-            //animal.IsAnimalHere = true;
-            //AnimalManager.UpdateAnimalStatus(animal);
         }
 
         public void ReportOut()
@@ -121,11 +115,13 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
             }
             else
             {
-
-                DogManager.ListUpAnimalsInKennel();
                 var loop = true;
-                Console.WriteLine("Please type in your animals Id.");
-                Console.WriteLine("Press 0 if you want to return to the menu.");
+                DogManager.CreateCustomListUp(dogs);
+     
+                //Console.WriteLine("\n\n");
+
+                Console.WriteLine("Please type in your animals Id that you want to report out.");
+                Console.WriteLine("Type 0 if you want to return to the menu.");
                 while (loop)
                 {
 
@@ -144,6 +140,8 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
                                 if (Dog.CheckedIn == true)
                                 {
                                     loop = false;
+
+                                    ReceiptService.CalculateReceipt(Dog);
                                     Dog.CheckedIn = false;
                                     Dog.Clawscut = false;
                                     Dog.Washed = false;
@@ -164,13 +162,7 @@ namespace Uppgift_1_SOLID_Ny.Models.ReportInOut
                     {
                         Console.WriteLine("Try Again");
                     }
-
-
                 }
-
-                //ReceiptService.CalculateReceipt(Animal);
-
-
             }
         }
     }
